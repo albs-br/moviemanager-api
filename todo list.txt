@@ -1,0 +1,4 @@
+authentication (using auth0)                    OK
+log (using winston)                             OK
+"contact me" form (using nodemailer)            OK
+host api on azure (just for learning purposes)  CANCELED
