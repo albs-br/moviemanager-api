@@ -1,6 +1,3 @@
-// Migrated to 'https://services-api.glitch.me/sendMail';
-
-/*
 var express = require('express');
 var nodemailer = require('nodemailer');
 
@@ -60,4 +57,3 @@ router.post('/contact', function (req, res) {
 
 
 module.exports = router;
-*/

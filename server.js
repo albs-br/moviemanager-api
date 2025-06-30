@@ -19,7 +19,7 @@ var routeMovies = require('./routes/movies');
 var routeGenres = require('./routes/genres');
 var routePersons = require('./routes/persons');
 var routeUser = require('./routes/user');
-//var routeContact = require('./routes/contact');
+var routeContact = require('./routes/contact');
 var routeImdbApi = require('./routes/imdbapi');
 
 
