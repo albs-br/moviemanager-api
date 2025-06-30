@@ -8,7 +8,7 @@ console.info(process.env.PORT);
 // minimum app for testing
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 8080;
 
 // Define a route for the root URL ("/")
 app.get('/', (req, res) => {
