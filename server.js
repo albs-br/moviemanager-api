@@ -202,7 +202,7 @@ winston.configure({
   transports: [
     new (winston.transports.Console)(),
     new (winston.transports.File)({
-      filename: __dirname + LOG_FILEPATH + '/moviemanager-api.log',
+      filename: __dirname + process.env.LOG_FILEPATH + 'moviemanager-api.log',
       level: 'error'
     }),
     new (winston.transports.MongoDB)({
