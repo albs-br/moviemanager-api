@@ -53,7 +53,7 @@ if (FORCE_HTTPS) // This is what forces HTTPS! Cool right?
 
 // Using express-jwt to protect the API
 //let jwt = require('express-jwt');
-var { expressjwt: jwt } = require("express-jwt");
+let { expressjwt: jwt } = require("express-jwt");
 /*
 let jwtCheck = jwt({
     secret: new Buffer(process.env.AUTH0_CLIENT_SECRET, 'base64'),
@@ -64,7 +64,10 @@ let jwtCheck = jwt({
 */
 //deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
 //let jwtCheck = jwt({ secret: new Buffer(process.env.AUTH0_CLIENT_SECRET, 'base64'), algorithms: ["HS256"] });
-let jwtCheck = jwt({ secret: Buffer.from(process.env.AUTH0_CLIENT_SECRET, 'base64'), algorithms: ["HS256"] });
+let jwtCheck = jwt({
+    secret: Buffer.from(process.env.AUTH0_CLIENT_SECRET, 'base64'), 
+    algorithms: ["HS256"] 
+});
 
 
 app.use('/api', jwtCheck);
@@ -110,7 +113,7 @@ app.use('/api', bodyParser.json()); // for parsing application/json
 
 //Set response header with api version
 app.use('/api', function (req, res, next) {
-  var version = pjson.version;
+  const version = pjson.version;
   res.header('api-version', version);
   next();
 });
@@ -199,7 +202,7 @@ winston.configure({
   transports: [
     new (winston.transports.Console)(),
     new (winston.transports.File)({
-      filename: __dirname + '/moviemanager-api.log',
+      filename: __dirname + LOG_FILEPATH + '/moviemanager-api.log',
       level: 'error'
     }),
     new (winston.transports.MongoDB)({
