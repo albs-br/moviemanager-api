@@ -53,7 +53,7 @@ if (FORCE_HTTPS) // This is what forces HTTPS! Cool right?
 
 // Using express-jwt to protect the API
 //let jwt = require('express-jwt');
-let { expressjwt: jwt } = require("express-jwt");
+var { expressjwt: jwt } = require("express-jwt");
 /*
 let jwtCheck = jwt({
     secret: new Buffer(process.env.AUTH0_CLIENT_SECRET, 'base64'),
