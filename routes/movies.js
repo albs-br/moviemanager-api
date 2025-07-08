@@ -33,7 +33,6 @@ router.get('/movies', function (req, res) {
   winston.info('GET api/movies');
   winston.info(req.query);
 
-  //MyModel.find({ name: 'john', age: { $gte: 18 }}, function (err, docs) {});
   
   var filter = {};
   
@@ -73,8 +72,6 @@ router.get('/movies', function (req, res) {
   let dateWatchedFrom = parseDate(watchedfrom);
   let dateWatchedTo = parseDate(watchedto, true);
   
-  //winston.info(dateWatchedFrom);
-  //winston.info(dateWatchedTo);
   
   if(dateWatchedFrom !== undefined && dateWatchedTo !== undefined) {
     filter.Watched = { $gte: dateWatchedFrom, $lte: dateWatchedTo };
@@ -86,11 +83,6 @@ router.get('/movies', function (req, res) {
     filter.Watched = { $lte: dateWatchedTo };
   }
   
-  //filter.Watched = { $gte: new Date(2018, 11, 1) }; //[debug]
-  //filter.Watched = { $gte: new Date(2018, 11, 1), $lte: new Date(2018, 11, 31) }; //[debug]
-  //winston.info(filter);
-  
-  //winston.info()
   
   if(limit !== undefined) {
     limit = parseInt(limit);
@@ -99,22 +91,6 @@ router.get('/movies', function (req, res) {
     offset = parseInt(offset);
   }
 
-  /*
-  Movie
-    .find(filter)
-    .sort(orderby)
-    .skip(offset)
-    .limit(limit)
-    .exec(function(err, movies) {
-    if (err) throw err;
-
-    //console.log(movies);
-
-    res.json(movies);
-
-  });
-  */
-  
   Movie
     .find(filter)
     .sort(orderby)
@@ -174,18 +150,6 @@ router.post("/movies", function (req, res) {
     Poster: req.body.Poster
   });
 
-  /*
-  movie.save(function (err, saved) {
-    if (err) throw err;
-
-    //console.log('movie saved sucessfully');
-    
-    backupMovies();
-    
-    returnPopulated(saved, res);
-  });
-  */
-  
   movie.save()
     .then((saved) => {
 
@@ -246,18 +210,6 @@ router.put("/movies/:movie_id/evaluate/:stars", function (req, res) {
   var id = req.params.movie_id;
   var stars = req.params.stars;
 
-  /*
-  Movie.findByIdAndUpdate(id, { Stars: stars }, { new: true }, function(err, updated) {
-    if (err) throw err;
-  
-    //console.log('movie evaluated sucessfully');
-
-    backupMovies();
-
-    returnPopulated(updated, res);
-  });
-  */
-  
   Movie.findByIdAndUpdate(id, { Stars: stars }, { new: true })
     .then((updated) => {
       //console.log('movie evaluated sucessfully');
@@ -294,6 +246,29 @@ router.delete("/movies/:movie_id", function (req, res) {
 
 });
 
+router.get('/movies/download', function(req, res) {
+
+    Movie.find({})
+        .then((movies) => {
+
+            const filename = process.env.TEMP_FILEPATH + "moviemanager-allmovies.json";
+
+            fs.writeFile(filename, JSON.stringify(movies), 'utf8', function (err) {
+                if(err) {
+                    winston.error('Error while downloading all movies. Err: ' + err);
+                    return;
+                }
+
+                res.download(filename); // Set disposition and send file.
+
+            });
+        })
+        .catch((err) => {
+            throw err;
+        });  
+
+});
+
 function checkPermission(req, res) {
   var user = req.user.email;
   
@@ -311,93 +286,43 @@ function checkPermission(req, res) {
 }
 
 function returnPopulated(original, res) {
-  /*
-  Movie.populate(original, 'Genre Cast Director', function (err, populated) {
-    if (err) throw err;
-    res.json(populated);
-  });
-  */
-  
   Movie.populate(original, 'Genre Cast Director')
     .then((populated) => {
 
-      //console.log(populated);
       res.json(populated);
 
     })
     .catch((err) => {
       throw err;
     });  
-  
 }
 
 // Saves all movies to a backup file
 function backupMovies() {
-  //var testData = 'test string 03'; //{ test: 'test' };
-  //console.log('saving bkp file');
 
-  //var filename = __dirname + '/.data/bkp/movies.json';
-  //var filename = '/app/.data/bkp/movies.json';
-  var currentDatetime = new Date()
+    var currentDatetime = new Date()
         .toLocaleString('pt-BR', { timeZone: 'UTC' })
         .replace(/\//g, '-')
         .replace(/:/g, '-')
         .replace(/,/g, '');
-  var filename = process.env.BKP_FILEPATH + 'movies ' + currentDatetime + '.json';
+    var filename = process.env.BKP_FILEPATH + 'movies ' + currentDatetime + '.json';
 
-  /*
-  Movie.find({}).exec(function(err, movies) {
-    if (err) throw err;
-  
-    //console.log(movies);
-    
-    //console.log('filename: ' + filename);
-    fs.writeFile(filename, movies, 'utf8', function (err) {
+ 
+    Movie.find({})
+        .then((movies) => {
 
-      if(err) { 
-        winston.error('Error while backing up movies. Err: ' + err);
-        return;
-      }
+            fs.writeFile(filename, JSON.stringify(movies), 'utf8', function (err) {
+                if(err) {
+                    winston.error('Error while backing up movies. Err: ' + err);
+                    return;
+                }
 
-      winston.info('Backup file successfully saved to ' + filename);
-
-      //console.log('bkp file saved');
-      //res.json(movies);
-
-      //fs.readFile(filename, 'utf8', function(err, data) {
-      //  console.log(data);
-      //});
-
-    });    
-  */
-  
-  Movie.find({})
-    .then((movies) => {
-        //console.log(movies);
-
-        //console.log('filename: ' + filename);
-        fs.writeFile(filename, JSON.stringify(movies), 'utf8', function (err) {
-
-          if(err) {
-            winston.error('Error while backing up movies. Err: ' + err);
-            return;
-          }
-
-          winston.info('Backup file successfully saved to ' + filename);
-
-          //console.log('bkp file saved');
-          //res.json(movies);
-
-          //fs.readFile(filename, 'utf8', function(err, data) {
-          //  console.log(data);
-          //});
-
-          });
-      })
-    .catch((err) => {
-      throw err;
-    });  
-  
+                winston.info('Backup file successfully saved to ' + filename);
+            });
+        })
+        .catch((err) => {
+            throw err;
+        });  
 }
 
 module.exports = router;
