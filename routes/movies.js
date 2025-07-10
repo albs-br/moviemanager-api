@@ -251,7 +251,7 @@ router.get('/movies/download', function(req, res) {
     Movie.find({})
         .then((movies) => {
 
-            const filename = __dirname + process.env.TEMP_FILEPATH + "moviemanager-allmovies.json";
+            const filename = "./" + process.env.TEMP_FILEPATH + "moviemanager-allmovies.json";
 
             fs.writeFile(filename, JSON.stringify(movies), 'utf8', function (err) {
                 if(err) {
@@ -305,7 +305,7 @@ function backupMovies() {
         .replace(/\//g, '-')
         .replace(/:/g, '-')
         .replace(/,/g, '');
-    var filename = __dirname + process.env.BKP_FILEPATH + 'movies ' + currentDatetime + '.json';
+    var filename = './' + process.env.BKP_FILEPATH + 'movies ' + currentDatetime + '.json';
 
  
     Movie.find({})
