@@ -247,7 +247,7 @@ app.use('/api', routeMovies);
 app.use('/api', routeGenres);
 app.use('/api', routePersons);
 app.use('/api', routeUser);
-//app.use('/api', routeContact);
+app.use('/api', routeContact);
 app.use('/api', routeImdbApi);
 
 
