@@ -120,7 +120,10 @@ app.use('/api', function (req, res, next) {
 
 // Enable CORS
 app.use('/api', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); //TODO: when go to production, limit to the allowed clients
+  
+  // Access-Control-Allow-Origin is being set on Azure App Service
+  //res.header("Access-Control-Allow-Origin", "*"); //TODO: when go to production, limit to the allowed clients
+  
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "POST, GET, HEAD, OPTIONS, PUT, DELETE"); // TODO: what about PATCH method?
   //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -194,7 +197,7 @@ require('winston-mongodb').MongoDB;
 
 const filename = path.join(__dirname, process.env.LOG_FILEPATH, 'moviemanager-api.log');
 
-console.info(filename); //[debug]
+//console.info(filename); //[debug]
 
 // let options = {
 //   useUnifiedTopology: true,

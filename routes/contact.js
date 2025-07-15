@@ -5,7 +5,7 @@ var router = express.Router();
 
 
 router.post('/contact', function (req, res) {
-  console.log("POST api/contact");
+//   console.log("POST api/contact");
   
   var name = req.body.name;
   var email = req.body.email;
