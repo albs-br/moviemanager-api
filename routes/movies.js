@@ -5,6 +5,8 @@ var Movie = require('../models/movie');
 const imdb = require('imdb-api');
 var fs = require('fs');
 var security = require('../security.js');
+const path = require('node:path');
+
 
 /*
 var movies = [
@@ -251,7 +253,10 @@ router.get('/movies/download', function(req, res) {
     Movie.find({})
         .then((movies) => {
 
-            const filename = "./" + process.env.TEMP_FILEPATH + "moviemanager-allmovies.json";
+            // const filename = "./" + process.env.TEMP_FILEPATH + "moviemanager-allmovies.json";
+            const filename = path.join('./', process.env.TEMP_FILEPATH, "moviemanager-allmovies.json");
+
+            console.info(filename); //[debug]
 
             fs.writeFile(filename, JSON.stringify(movies), 'utf8', function (err) {
                 if(err) {
@@ -305,8 +310,17 @@ function backupMovies() {
         .replace(/\//g, '-')
         .replace(/:/g, '-')
         .replace(/,/g, '');
-    var filename = './' + process.env.BKP_FILEPATH + 'movies ' + currentDatetime + '.json';
 
+    // // Example: Joining path segments
+    // const fullPath = path.join('/users', 'documents', 'report.pdf');
+    // console.log(fullPath); // Output: /users/documents/report.pdf (on POSIX) or \users\documents\report.pdf (on Windows)
+
+
+
+    //var filename = './' + process.env.BKP_FILEPATH + 'movies ' + currentDatetime + '.json';
+    const filename = path.join('./', process.env.BKP_FILEPATH, 'movies ' + currentDatetime + '.json');
+
+console.info(filename); //[debug]
  
     Movie.find({})
         .then((movies) => {

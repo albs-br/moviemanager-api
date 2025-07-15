@@ -7,6 +7,7 @@ var _ = require('underscore');
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
 var winston = require('winston');
+const path = require('node:path');
 
 var pjson = require('./package.json');
 
@@ -22,8 +23,6 @@ var routeUser = require('./routes/user');
 var routeContact = require('./routes/contact');
 var routeImdbApi = require('./routes/imdbapi');
 
-
-//console.info("teste4");
 
 
 // ES6 format strings:
@@ -154,8 +153,8 @@ let dbUri = process.env.DB_PROT +
 //console.log(dbUri);
 
 let mongooseOptions = { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true,
+  //useNewUrlParser: true, 
+  //useUnifiedTopology: true,
   //MongoParseError: options usefindandmodify, usecreateindex are not supported
   //useFindAndModify: false,
   //useCreateIndex: true
@@ -193,16 +192,20 @@ mongoose.connect(dbUri, mongooseOptions)
  */
 require('winston-mongodb').MongoDB;
 
-let options = {
-  useUnifiedTopology: true,
-  db: dbUri,
-  level: 'error'
-};
+const filename = path.join(__dirname, process.env.LOG_FILEPATH, 'moviemanager-api.log');
+
+console.info(filename); //[debug]
+
+// let options = {
+//   useUnifiedTopology: true,
+//   db: dbUri,
+//   level: 'error'
+// };
 winston.configure({
   transports: [
     new (winston.transports.Console)(),
     new (winston.transports.File)({
-      filename: __dirname + '/' + process.env.LOG_FILEPATH + 'moviemanager-api.log',
+      filename: filename,
       level: 'error'
     }),
     new (winston.transports.MongoDB)({
