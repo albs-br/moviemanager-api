@@ -3,7 +3,7 @@
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
   "name": "moviemanager-api",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "description": "Movie Manager Restful API (POC Mean Stack)",
   "main": "server.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "passport": "^0.7.0",
     "passport-auth0": "^1.4.4",
     "request": "latest",
-    "request-promise": "latest",
+    "request-promise": "^0.0.1",
     "underscore": "^1.13.6",
     "winston": "^3.11.0",
     "winston-mongodb": "^5.1.1"

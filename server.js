@@ -151,6 +151,7 @@ let dbUri = process.env.DB_PROT +
           //':' + process.env.DB_PORT + 
           '/' + process.env.DB_NAME;
 
+
 // MongoDB Atlas uri connection string:
 // mongodb+srv://mongodb_atlas_user:zcIOlfBuVMf2cxlO@cluster0-tuhmi.mongodb.net/test?retryWrites=true
 
@@ -194,33 +195,28 @@ mongoose.connect(dbUri, mongooseOptions)
  * Requiring `winston-mongodb` will expose
  * `winston.transports.MongoDB`
  */
-require('winston-mongodb').MongoDB;
+// require('winston-mongodb').MongoDB;
 
 const filename = path.join(__dirname, process.env.LOG_FILEPATH, 'moviemanager-api.log');
 
 //console.info(filename); //[debug]
 
-// let options = {
-//   useUnifiedTopology: true,
-//   db: dbUri,
-//   level: 'error'
-// };
-winston.configure({
-  transports: [
-    new (winston.transports.Console)(),
-    new (winston.transports.File)({
-      filename: filename,
-      level: 'error'
-    }),
-    new (winston.transports.MongoDB)({
-      db: dbUri,
-      level: 'error',
-      options: {
-        useUnifiedTopology: true
-      }
-    })
-  ]
-});
+// winston.configure({
+//   transports: [
+//     new (winston.transports.Console)(),
+//     new (winston.transports.File)({
+//       filename: filename,
+//       level: 'error'
+//     }),
+//     new (winston.transports.MongoDB)({
+//       db: dbUri,
+//       level: 'error',
+//       options: {
+//         useUnifiedTopology: true
+//       }
+//     })
+//   ]
+// });
 
 //winston.add(winston.transports.MongoDB, options);//[debug] // stop working after db migration to Atlas
 //winston.add(new winston.transports.MongoDB(options));
