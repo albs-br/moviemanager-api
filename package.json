@@ -3,7 +3,7 @@
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
   "name": "moviemanager-api",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "description": "Movie Manager Restful API (POC Mean Stack)",
   "main": "server.js",
   "scripts": {
@@ -12,25 +12,25 @@
     "//start_1": "bash test-and-launch.sh"
   },
   "dependencies": {
-    "body-parser": "^1.20.2",
-    "chai": "^4.3.10",
-    "connect-ensure-login": "^0.1.1",
-    "es6-promise": "latest",
     "express": "^4.18.2",
-    "express-jwt": "^8.4.1",
-    "fs": "latest",
-    "imdb-api": "^4.4.1",
-    "mocha": "^10.2.0",
-    "mongoose": "^8.16.3",
+    "mongoose": "^7.0.0",
     "mongoose-autopopulate": "^1.1.0",
-    "nodemailer": "^6.9.7",
+    "body-parser": "^1.20.2",
+    "underscore": "^1.13.6",
+    "mocha": "^10.2.0",
+    "chai": "^4.3.10",
     "passport": "^0.7.0",
     "passport-auth0": "^1.4.4",
-    "request": "latest",
-    "request-promise": "^0.0.1",
-    "underscore": "^1.13.6",
+    "connect-ensure-login": "^0.1.1",
+    "nodemailer": "^6.9.7",
     "winston": "^3.11.0",
-    "winston-mongodb": "^5.1.1"
+    "winston-mongodb": "^5.1.1",
+    "express-jwt": "^8.4.1",
+    "imdb-api": "^4.4.1",
+    "es6-promise": "latest",
+    "request": "latest",
+    "request-promise": "latest",
+    "fs": "latest"
   },
   "engines": {
     "node": "^22.x"
