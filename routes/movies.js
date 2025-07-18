@@ -124,7 +124,7 @@ router.get('/movies/download', function(req, res) {
             const fileContents = Buffer.from(movies, "utf8");
             
             const readStream = new stream.PassThrough();
-            readStream.end(fileContents);
+            readStream.end(JSON.stringify(fileContents));
 
             res.set('Content-disposition', 'attachment; filename=' + fileName);
             res.set('Content-Type', 'text/json');
