@@ -206,6 +206,7 @@ console.log("[debug] log file: " + filename); //[debug]
 
 
             // testing writing to file
+            var fs = require('fs');
             const filename1 = path.join(__dirname, 'filename1.txt');
             fs.writeFile(filename1, "Text: " + filename1, 'utf8', function (err) { });
             
