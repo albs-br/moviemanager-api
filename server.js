@@ -197,6 +197,7 @@ mongoose.connect(dbUri, mongooseOptions)
  */
 require('winston-mongodb').MongoDB;
 
+// there is also __parentDir
 const filename = path.join(__dirname, process.env.LOG_FILEPATH, 'moviemanager-api.log');
 
 console.log("[debug] log file: " + filename); //[debug]
@@ -205,10 +206,10 @@ console.log("[debug] log file: " + filename); //[debug]
 winston.configure({
   transports: [
     new (winston.transports.Console)(),
-    new (winston.transports.File)({
-      filename: filename,
-      level: 'error'
-    }),
+    // new (winston.transports.File)({
+    //   filename: filename,
+    //   level: 'error'
+    // }),
     new (winston.transports.MongoDB)({
       db: dbUri,
       level: 'error',
@@ -225,7 +226,7 @@ winston.configure({
 // Testing winston logging
 //winston.log('info', 'Hello distributed log files!');
 //winston.info('Testing winston logging to MongoDB');
-//winston.error('Testing winston error level log');
+winston.error('Testing winston error level log');
 
 
 
