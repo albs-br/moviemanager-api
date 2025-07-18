@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var winston = require('winston');
-var Movie = require('../models/movie');
-const imdb = require('imdb-api');
-var fs = require('fs');
-var security = require('../security.js');
+const express = require('express');
+const router = express.Router();
+const winston = require('winston');
+const Movie = require('../models/movie');
+const fs = require('fs');
+const security = require('../security.js');
 const path = require('node:path');
+const stream = require('stream');
 
 
 /*
