@@ -110,6 +110,34 @@ router.get('/movies', function (req, res) {
   
 });
 
+// This route should be placed before GET /movies/:movie_id
+router.get('/movies/download', function(req, res) {
+
+    winston.info("GET api/movies/download");
+
+    Movie.find({})
+        .then((movies) => {
+
+            // download json file without saving temp file
+
+            const fileName = "moviemanager-all-movies.json";
+            const fileContents = Buffer.from(movies, "utf8");
+            
+            const readStream = new stream.PassThrough();
+            readStream.end(fileContents);
+
+            res.set('Content-disposition', 'attachment; filename=' + fileName);
+            res.set('Content-Type', 'text/json');
+
+            readStream.pipe(res);
+
+        })
+        .catch((err) => {
+            throw err;
+        });  
+
+});
+
 router.get('/movies/:movie_id', function (req, res) {
   winston.info("GET api/movies/%s", req.params.movie_id);
   
@@ -248,30 +276,6 @@ router.delete("/movies/:movie_id", function (req, res) {
 
 });
 
-router.get('/movies/download', function(req, res) {
-
-    Movie.find({})
-        .then((movies) => {
-
-            // download json file without saving temp file
-
-            const fileName = "moviemanager-all-movies.json";
-            const fileContents = Buffer.from(movies, "utf8");
-            
-            const readStream = new stream.PassThrough();
-            readStream.end(fileContents);
-
-            res.set('Content-disposition', 'attachment; filename=' + fileName);
-            res.set('Content-Type', 'text/json');
-
-            readStream.pipe(res);
-
-        })
-        .catch((err) => {
-            throw err;
-        });  
-
-});
 
 function checkPermission(req, res) {
   var user = req.user.email;
