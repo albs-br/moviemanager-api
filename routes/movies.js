@@ -254,6 +254,7 @@ router.get('/movies/download', function(req, res) {
         .then((movies) => {
 
             // const filename = "./" + process.env.TEMP_FILEPATH + "moviemanager-allmovies.json";
+            //const filename = path.join(baseDir, process.env.TEMP_FILEPATH, "moviemanager-allmovies.json");
             const filename = path.join('./', process.env.TEMP_FILEPATH, "moviemanager-allmovies.json");
 
             console.log("[debug] temp file: " + filename); //[debug]

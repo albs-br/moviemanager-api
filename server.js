@@ -200,7 +200,17 @@ require('winston-mongodb').MongoDB;
 // there is also __parentDir
 const filename = path.join(__dirname, process.env.LOG_FILEPATH, 'moviemanager-api.log');
 
+let baseDir = __dirname;
+
 console.log("[debug] log file: " + filename); //[debug]
+
+
+            // testing writing to file
+            const filename1 = path.join(__dirname, 'filename1.txt');
+            fs.writeFile(filename1, "Text: " + filename1, 'utf8', function (err) { });
+            
+            const filename2 = "./" + "filename2.txt";
+            fs.writeFile(filename2, "Text: " + filename2, 'utf8', function (err) { });
 
 
 winston.configure({
