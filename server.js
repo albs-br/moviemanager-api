@@ -208,10 +208,16 @@ console.log("[debug] log file: " + filename); //[debug]
             // testing writing to file
             var fs = require('fs');
             const filename1 = path.join(__dirname, 'filename1.txt');
-            fs.writeFile(filename1, "Text: " + filename1, 'utf8', function (err) { });
+            console.log("[debug] test file: " + filename1); //[debug]
+            fs.writeFile(filename1, "Text: " + filename1, 'utf8', function (err) { 
+                console.error(err);
+            });
             
             const filename2 = "./" + "filename2.txt";
-            fs.writeFile(filename2, "Text: " + filename2, 'utf8', function (err) { });
+            console.log("[debug] test file: " + filename2); //[debug]
+            fs.writeFile(filename2, "Text: " + filename2, 'utf8', function (err) { 
+                console.error(err);
+            });
 
 
 winston.configure({
