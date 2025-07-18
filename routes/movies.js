@@ -253,21 +253,19 @@ router.get('/movies/download', function(req, res) {
     Movie.find({})
         .then((movies) => {
 
-            // const filename = "./" + process.env.TEMP_FILEPATH + "moviemanager-allmovies.json";
-            //const filename = path.join(baseDir, process.env.TEMP_FILEPATH, "moviemanager-allmovies.json");
-            const filename = path.join('./', process.env.TEMP_FILEPATH, "moviemanager-allmovies.json");
+            // download json file without saving temp file
 
-            console.log("[debug] temp file: " + filename); //[debug]
+            const fileName = "moviemanager-all-movies.json";
+            const fileContents = Buffer.from(movies, "utf8");
+            
+            const readStream = new stream.PassThrough();
+            readStream.end(fileContents);
 
-            fs.writeFile(filename, JSON.stringify(movies), 'utf8', function (err) {
-                if(err) {
-                    winston.error('Error while downloading all movies. Err: ' + err);
-                    return;
-                }
+            res.set('Content-disposition', 'attachment; filename=' + fileName);
+            res.set('Content-Type', 'text/json');
 
-                res.download(filename); // Set disposition and send file.
+            readStream.pipe(res);
 
-            });
         })
         .catch((err) => {
             throw err;

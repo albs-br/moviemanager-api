@@ -1,5 +1,3 @@
-console.log("server.js started")
-
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
@@ -198,35 +196,39 @@ mongoose.connect(dbUri, mongooseOptions)
 require('winston-mongodb').MongoDB;
 
 // there is also __parentDir
-const filename = path.join(__dirname, process.env.LOG_FILEPATH, 'moviemanager-api.log');
+// const filename = path.join(__dirname, process.env.LOG_FILEPATH, 'moviemanager-api.log');
 
-let baseDir = __dirname;
+// let baseDir = __dirname;
 
-console.log("[debug] log file: " + filename); //[debug]
+// console.log("[debug] log file: " + filename); //[debug]
 
 
-            // testing writing to file
-            var fs = require('fs');
-            const filename1 = path.join(__dirname, 'filename1.txt');
-            console.log("[debug] test file: " + filename1); //[debug]
-            fs.writeFile(filename1, "Text: " + filename1, 'utf8', function (err) { 
-                console.error(err);
-            });
-            
-            const filename2 = "./" + "filename2.txt";
-            console.log("[debug] test file: " + filename2); //[debug]
-            fs.writeFile(filename2, "Text: " + filename2, 'utf8', function (err) { 
-                console.error(err);
-            });
+// // testing writing to file
+// var fs = require('fs');
+// const filename1 = path.join(__dirname, 'filename1.txt');
+// console.log("[debug] test file: " + filename1); //[debug]
+// fs.writeFile(filename1, "Text: " + filename1, 'utf8', function (err) { 
+//     console.error(err);
+// });
+
+// const filename2 = "./" + "filename2.txt";
+// console.log("[debug] test file: " + filename2); //[debug]
+// fs.writeFile(filename2, "Text: " + filename2, 'utf8', function (err) { 
+//     console.error(err);
+// });
 
 
 winston.configure({
   transports: [
     new (winston.transports.Console)(),
+    
+    // Azure do not recommend saving files on webserver filesystem
+
     // new (winston.transports.File)({
     //   filename: filename,
     //   level: 'error'
     // }),
+    
     new (winston.transports.MongoDB)({
       db: dbUri,
       level: 'error',
@@ -243,7 +245,7 @@ winston.configure({
 // Testing winston logging
 //winston.log('info', 'Hello distributed log files!');
 //winston.info('Testing winston logging to MongoDB');
-winston.error('Testing winston error level log');
+//winston.error('Testing winston error level log');
 
 
 
