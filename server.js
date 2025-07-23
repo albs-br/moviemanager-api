@@ -1,27 +1,27 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-//var methodOverride = require('method-override');
-var _ = require('underscore');
-var passport = require('passport');
-var Auth0Strategy = require('passport-auth0');
-var winston = require('winston');
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+//const methodOverride = require('method-override');
+const _ = require('underscore');
+const passport = require('passport');
+const Auth0Strategy = require('passport-auth0');
+const winston = require('winston');
 const path = require('node:path');
 
-var pjson = require('./package.json');
+const pjson = require('./package.json');
 
-var Movie = require('./models/movie');
-var Genre = require('./models/genre');
-var Person = require('./models/person');
+const Movie = require('./models/movie');
+const Genre = require('./models/genre');
+const Person = require('./models/person');
 
-//var routeIndex = require('./routes/index');
-var routeMovies = require('./routes/movies');
-var routeGenres = require('./routes/genres');
-var routePersons = require('./routes/persons');
-var routeUser = require('./routes/user');
-var routeContact = require('./routes/contact');
-var routeImdbApi = require('./routes/imdbapi');
+//const routeIndex = require('./routes/index');
+const routeMovies = require('./routes/movies');
+const routeGenres = require('./routes/genres');
+const routePersons = require('./routes/persons');
+const routeUser = require('./routes/user');
+const routeContact = require('./routes/contact');
+const routeImdbApi = require('./routes/imdbapi');
 
 
 
@@ -52,7 +52,7 @@ if (FORCE_HTTPS) // This is what forces HTTPS! Cool right?
 
 // Using express-jwt to protect the API
 //let jwt = require('express-jwt');
-var { expressjwt: jwt } = require("express-jwt");
+const { expressjwt: jwt } = require("express-jwt");
 /*
 let jwtCheck = jwt({
     secret: new Buffer(process.env.AUTH0_CLIENT_SECRET, 'base64'),
@@ -286,7 +286,7 @@ app.use(errorHandler);
 
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
 
@@ -294,7 +294,7 @@ var listener = app.listen(process.env.PORT, function () {
 
 
 function prettyPrintJSON(req, res, next) {
-  var pretty = req.query.pretty;
+  const pretty = req.query.pretty;
   
   //console.log("req.query.pretty: " + req.query.pretty);
   //console.log("req.originalUrl: " + req.originalUrl);
